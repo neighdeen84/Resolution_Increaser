@@ -1,12 +1,14 @@
 import pandas as pd
 import numpy as np
-import datetime
+#import datetime
+from datetime import datetime
+from dateutil.parser import parse
 
 # Enter in the CSVs you want to process:
 # this is for the power values:
 
 # This is purely for the timestamp, concatenate later:
-df = pd.read_csv('14545_house_profile_1.csv', header=None)
+df = pd.read_csv('14545_house_profile_10_.csv', header=None)
 
 # Give labels
 df.columns =['Timestamp', 'Power']
@@ -31,5 +33,15 @@ for i in range(len(df)):
         df.iloc[i,1] = df.iloc[i-1,1]
 print(df)
 
+#print(df['Timestamp'].dtypes)
+df['Timestamp'] = df['Timestamp'].mask(df['Timestamp'].dt.year == 2013, df['Timestamp'] + pd.offsets.DateOffset(year=2021))
+#print(df)
+
+# Add missing rows to df and use last power value:
+df.loc[len(df.index)] = ['2021-01-12 23:50:00', df.iloc[-1,1]]
+df.loc[len(df.index)] = ['2021-01-12 23:55:00', df.iloc[-1,1]]
+print(df)
+
+
 # Printing out sampled CSV with removed headers (col labels) and keeping the index (timestamp col):
-df.to_csv('Resampled.csv', header=False, index=False)
+df.to_csv('14545_house_profile_10.csv', header=False, index=False)
