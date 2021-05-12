@@ -3,7 +3,7 @@
 
 
 ## Project Description
-This program iterates through EV profiles with a 10-minute sampling rate and converts it to 15 minutes, outputting the new profiles in resampled_data. The output rate doesn't necessarily have to be 15 minutes and can be varied, as long as it remains at a resolution that is lower than that of the input CSVs. The program averages the values in between and ceils any values larger than a 0 and less than 5.76 kW to 5.76 kW. Due to this, this program is specific for EVSEs with a power rating of 5.76 kW and it would need to be accordingly adjusted for different power ratings.
+This program takes input in the form of a house profile with a 15-minute sampling rate and converts it to 5 minutes. The output sampling rate doesn't necessarily have to be 5 minutes and can be varied, as long as it remains at a resolution that is higher than that of the input CSVs. The program also changes the year of the timestamp of the profile from 2013 to 2021.
 
 ## Requirements
 ```
